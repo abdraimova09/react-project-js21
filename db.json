@@ -1,3 +1,11 @@
 {
-  "products": []
+  "products": [
+    {
+      "title": "some title",
+      "description": "some description",
+      "price": 1000,
+      "image": "https://softech.kg/image/cache/46148fda07614998a56cbb35a0ca760c.png",
+      "id": 1
+    }
+  ]
 }
