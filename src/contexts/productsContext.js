@@ -43,13 +43,17 @@ const ProductsContextProvider = ({ children }) => {
     await axios.delete(`${PRODUCTS_API}/${id}`);
     getProducts();
   }
-  //! Details
+  //! Details, Get for edit
   async function getOneProduct(id) {
     const res = await axios(`${PRODUCTS_API}/${id}`);
     dispatch({
       type: "GET_ONE",
       payload: res.data,
     });
+  }
+  //! Update
+  async function updateProduct(id, editedProduct) {
+    await axios.patch(`${PRODUCTS_API}/${id}`, editedProduct);
   }
   return (
     <productsContext.Provider
@@ -60,6 +64,7 @@ const ProductsContextProvider = ({ children }) => {
         getProducts,
         deleteProduct,
         getOneProduct,
+        updateProduct,
       }}>
       {children}
     </productsContext.Provider>
