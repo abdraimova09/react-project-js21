@@ -36,7 +36,6 @@ const EditProduct = () => {
       price,
       image,
     };
-    console.log(editedProduct);
     updateProduct(id, editedProduct);
     navigate("/products");
   }
