@@ -6,12 +6,17 @@ export const productsContext = React.createContext();
 const INIT_STATE = {
   products: [],
   oneProduct: null,
+  pages: 0,
 };
 
 function reducer(state = INIT_STATE, action) {
   switch (action.type) {
     case "GET_PRODUCTS":
-      return { ...state, products: action.payload };
+      return {
+        ...state,
+        products: action.payload.data,
+        pages: Math.ceil(action.payload.headers["x-total-count"] / 2),
+      };
     case "GET_ONE":
       return { ...state, oneProduct: action.payload };
     default:
@@ -32,10 +37,9 @@ const ProductsContextProvider = ({ children }) => {
   //! Read
   async function getProducts() {
     const res = await axios(`${PRODUCTS_API}${window.location.search}`);
-    console.log(res);
     dispatch({
       type: "GET_PRODUCTS",
-      payload: res.data,
+      payload: res,
     });
   }
   //! Delete
@@ -60,6 +64,7 @@ const ProductsContextProvider = ({ children }) => {
       value={{
         products: state.products,
         oneProduct: state.oneProduct,
+        pages: state.pages,
         createProduct,
         getProducts,
         deleteProduct,
