@@ -11,20 +11,25 @@ const ProductsList = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(
+    searchParams.get("q") ? searchParams.get("q") : ""
+  );
 
   useEffect(() => {
     getProducts();
   }, []);
 
   useEffect(() => {
-    // console.log("search changed!");
     setSearchParams({
       q: search,
     });
   }, [search]);
 
-  console.log(window.location.search);
+  useEffect(() => {
+    getProducts();
+  }, [searchParams]);
+
+  // console.log(window.location.search);
 
   return (
     <Container>
